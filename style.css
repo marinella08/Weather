@@ -1,0 +1,136 @@
+body {
+    background-color: black;
+  }
+  
+  .main-container {
+    height: 30%;
+    width: 60%;
+  }
+  
+  .navbar {
+    position: relative;
+    left: 43%;
+  }
+  
+  .search {
+    border-radius: 5px solid;
+    border-color: #42a5f5;
+    border-radius: 15px;
+    border-width: 3px;
+    color: white;
+    font-weight: 700;
+    background-color: white;
+    width: 80%;
+  }
+  
+  h1 {
+    font-weight: 900;
+    font-size: 100px;
+    margin-top: 60px;
+    margin-bottom: 3rem;
+    color: white;
+  }
+  
+  h2 {
+    font-weight: 900;
+    font-size: 60px;
+    margin-top: 40px;
+  }
+  
+  .city {
+    position: relative;
+    left: 5%;
+    margin-top: -8%;
+    color: #42a5f5;
+  }
+  
+  h3 {
+    font-weight: 900;
+    font-size: 33px;
+    color: white;
+    padding-top: 3%;
+  }
+  
+  .date {
+    position: relative;
+    left: 5%;
+    top: -20%;
+  }
+  
+  .time {
+    position: relative;
+    left: 5%;
+    margin-bottom: 10%;
+  }
+  
+  .temperature-city {
+    position: relative;
+    left: 5%;
+    margin-top: -8%;
+  }
+  
+  .pic-weather {
+    position: relative;
+    right: -45%;
+    margin-top: -30%;
+  }
+  
+  .table-wind {
+    width: 40%;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-color: #42a5f5;
+    position: relative;
+    left: 70%;
+    margin-top: -25%;
+  }
+  
+  .table {
+    border-color: #42a5f5;
+    border-style: solid;
+    color: white;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+  }
+  
+  .bord {
+    position: relative;
+    top: 10px;
+    border: 1px solid;
+    border-color: #586072;
+    text-align: center;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    font-weight: 100;
+    margin-left: 10%;
+  }
+  
+  .days {
+    font-weight: 900;
+    font-size: 22px;
+    text-align: center;
+    color: #42a5f5;
+  }
+  
+  .prognose {
+    border-color: #586072;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 100;
+  }
+  
+  .img {
+    width: 90px;
+    height: auto;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  
+  .location {
+    background: blue;
+    color: white;
+  }
+  
