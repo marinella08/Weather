@@ -3,9 +3,18 @@ body {
   }
   
   .main-container {
-    height: 30%;
-    width: 60%;
+    
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #42a5f5;
+    border-radius: 5px;
   }
+  .by-Pastukh {
+    max-width: 800px;
+    margin: 30px auto;
+  }
+  
   
   .navbar {
     position: relative;
@@ -73,6 +82,10 @@ body {
     position: relative;
     right: -45%;
     margin-top: -30%;
+  }
+
+  .description {
+    text-transform: capitalize;
   }
   
   .table-wind {

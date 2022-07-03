@@ -1,16 +1,26 @@
 //Search city
-function searchFun(event) {
-    event.preventDefault();
-    let searchInput = document.querySelector("#search");
-    let city = document.querySelector("#city");
-    city.innerHTML = `${searchInput.value}`;
-    let citySearch = `${searchInput.value}`;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&units=metric&appid=eadaf9d564268a9d29e613879a48803e`;
+
+function search(city) {
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=eadaf9d564268a9d29e613879a48803e`;
     axios.get(apiUrl).then(showWeather);
-  }
+}
+
+function handleSubmit(event) {
+    event.preventDefault();
+    let cityInputElement = document.querySelector("#search");
+    let city = document.querySelector("#city");
+    city.innerHTML = `${cityInputElement.value[0].toUpperCase()}${cityInputElement.value.substring(1)}`; 
+  //let city = `${cityInputElement.value}`;
+    
+    search(cityInputElement.value);
+    console.log (cityInputElement);
+   
+}
   
-  let search = document.querySelector("#search-form");
-  search.addEventListener("submit", searchFun);
+  search("Kiev");  
+
+  let form = document.querySelector("#search-form");
+  form.addEventListener("submit", handleSubmit);
   
   //Current time
   function formatDate(date) {
@@ -43,6 +53,7 @@ function searchFun(event) {
       "Saturday"
     ];
     let Day = days[date.getDay()];
+    
   
     let months = [
       "01",
@@ -117,17 +128,61 @@ function searchFun(event) {
     let windElment = document.querySelector("#wind");
     windElment.innerHTML = `${wind} m/s`;
   
-    let description = response.data.weather[0].main;
+    let description = response.data.weather[0].description;
     let descriptionElment = document.querySelector("#description");
     descriptionElment.innerHTML = `${description}`;
   
     let sunrise = response.data.sys.sunrise;
+    let sunriseCal = new Date((sunrise + response.data.timezone) * 1000);
+    let h = "0" + sunriseCal.getHours()
+    let m = "0" + sunriseCal.getMinutes()
+    let t = h + ":" + m.substr(-2)
     let sunriseElment = document.querySelector("#sunrise");
-    sunriseElment.innerHTML = `${sunrise}`;
+    sunriseElment.innerHTML = `${t}`;
   
     let sunset = response.data.sys.sunset;
+    let sunsetCal = new Date((sunset + response.data.timezone) * 1000);
+    let hour = sunsetCal.getHours()
+    let min = "0" + sunsetCal.getMinutes()
+    let time = hour + ":" + min.substr(-2)
+   
     let sunsetElment = document.querySelector("#sunset");
-    sunsetElment.innerHTML = `${sunset}`;
-  }
-  
-  
+    sunsetElment.innerHTML = `${time}`;
+
+
+
+    //ICON 
+    let icon = response.data.weather[0].icon;
+    let iconElment = document.querySelector("#icon");
+    if (description !== "clear sky") {
+    iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/168/original/01d.png?1656677804`) ;
+    }
+    if (description !== "few clouds") {
+        iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/169/original/02d.png?1656677813`) ;
+        } else 
+        if (description == "scattered clouds") {
+            iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/170/original/03d.png?1656677822`) ;
+        } else
+        if (description == "broken clouds") {
+            iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/171/original/04d.png?1656677838`) ;
+        } else
+        if (description == "shower rain") {
+            iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/172/original/09d.png?1656677847`) ;
+        } else
+        if (description == "rain") {
+            iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/173/original/10d.png?1656677854`) ;
+        } else
+        if (description == "thunderstorm") {
+            iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/174/original/11d.png?1656677860`) ;
+        } else
+        if (description == "snow") {
+            iconElment.setAttribute("src",` https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/175/original/13d.png?1656677869`) ;
+        } else
+        if (description == "mist") {
+            iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/316/original/50d.png?1656854718`) ;
+        } else {
+            iconElment.innerHTML = null;
+        }
+     
+    
+}
