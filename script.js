@@ -11,16 +11,42 @@ function handleSubmit(event) {
     let city = document.querySelector("#city");
     city.innerHTML = `${cityInputElement.value[0].toUpperCase()}${cityInputElement.value.substring(1)}`; 
   //let city = `${cityInputElement.value}`;
-    
     search(cityInputElement.value);
-    console.log (cityInputElement);
-   
+    console.log (cityInputElement);  
 }
-  
-  search("Kiev");  
+    search("Kiev");  
 
   let form = document.querySelector("#search-form");
   form.addEventListener("submit", handleSubmit);
+
+
+
+ //MY CURRENT GEOLOCATION
+function showCity(event) {
+   event.preventDefault();
+ }
+function showPosition(position) {
+      console.log(position);
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
+      let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=eadaf9d564268a9d29e613879a48803e`;
+      axios.get(apiUrl).then(showTemperature);
+    }
+    navigator.geolocation.getCurrentPosition(showPosition);
+  
+function showTemperature(response) {
+    let citySearch = response.data.name;
+    let searchInput = document.querySelector("#search");
+    searchInput.innerHTML = `${citySearch}`;
+    let h2 = document.querySelector("h2");
+    h2.innerHTML = `${citySearch}`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&units=metric&appid=eadaf9d564268a9d29e613879a48803e`;
+    axios.get(apiUrl).then(showWeather);
+  }
+
+
+
+
   
   //Current time
   function formatDate(date) {
@@ -29,6 +55,9 @@ function handleSubmit(event) {
   
     let now = new Date();
     let number = date.getDate();
+    if (number < 10) {
+        number = `0${number}`;
+      }
   
     let day = now.getDay();
     let hour = now.getHours();
@@ -54,7 +83,6 @@ function handleSubmit(event) {
     ];
     let Day = days[date.getDay()];
     
-  
     let months = [
       "01",
       "02",
@@ -77,32 +105,7 @@ function handleSubmit(event) {
   
   console.log(formatDate(new Date()));
   
-  //MY CURRENT GEOLOCATION
-  function showCity(event) {
-    event.preventDefault();
-  
-    function showPosition(position) {
-      console.log(position);
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-      let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=eadaf9d564268a9d29e613879a48803e`;
-      axios.get(apiUrl).then(showTemperature);
-    }
-    navigator.geolocation.getCurrentPosition(showPosition);
-  }
-  
-  let buttonclick = document.querySelector("#location");
-  buttonclick.addEventListener("click", showCity);
-  
-  function showTemperature(response) {
-    let citySearch = response.data.name;
-    let searchInput = document.querySelector("#search");
-    searchInput.innerHTML = `${citySearch}`;
-    let h2 = document.querySelector("h2");
-    h2.innerHTML = `${citySearch}`;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&units=metric&appid=eadaf9d564268a9d29e613879a48803e`;
-    axios.get(apiUrl).then(showWeather);
-  }
+ 
   
   //SEARCH TEMPERATURE
   function showWeather(response) {
@@ -152,7 +155,7 @@ function handleSubmit(event) {
 
 
     //ICON 
-    let icon = response.data.weather[0].icon;
+   // let description = response.data.weather[0].description;
     let iconElment = document.querySelector("#icon");
     if (description !== "clear sky") {
     iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/168/original/01d.png?1656677804`) ;
@@ -163,22 +166,22 @@ function handleSubmit(event) {
         if (description == "scattered clouds") {
             iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/170/original/03d.png?1656677822`) ;
         } else
-        if (description == "broken clouds") {
+        if (description == "broken clouds" == "overcast clouds") {
             iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/171/original/04d.png?1656677838`) ;
         } else
-        if (description == "shower rain") {
+        if (description == "shower rain" == "light intensity drizzle" == "drizzle" == "heavy intensity drizzle" == "light intensity drizzle rain" == "drizzle rain" == "heavy intensity drizzle rain" == "shower rain and drizzle" == "heavy shower rain and drizzle" == "shower drizzle" == "heavy intensity shower rain" == "ragged shower rain") {
             iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/172/original/09d.png?1656677847`) ;
         } else
-        if (description == "rain") {
+        if (description == "rain"== "light rain	"== "moderate rain"== "heavy intensity rain"== "very heavy rain"== "extreme rain") {
             iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/173/original/10d.png?1656677854`) ;
         } else
-        if (description == "thunderstorm") {
+        if (description == "thunderstorm"  == "thunderstorm with light rain"== "thunderstorm with rain" == "thunderstorm with heavy rain"== "light thunderstorm" == "heavy thunderstorm"== "ragged thunderstorm	" == "thunderstorm with light drizzle" == "thunderstorm with drizzle" == "thunderstorm with heavy drizzle") {
             iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/174/original/11d.png?1656677860`) ;
         } else
-        if (description == "snow") {
+        if (description == "snow" == "light snow"== "Snow" == "Heavy snow"== "Sleet" == "Light shower sleet"== "Shower sleet" == "freezing rain"== "Light rain and snow"== "Rain and snow" == "Light shower sleet"== "Shower snow" == "Heavy shower snow") {
             iconElment.setAttribute("src",` https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/175/original/13d.png?1656677869`) ;
         } else
-        if (description == "mist") {
+        if (description == "mist" == "tornado"== "squalls" == "volcanic ash"== "dust" == "sand"== "fog" == "sand/ dust whirls"== "Haze" == "Smoke") {
             iconElment.setAttribute("src",`https://s3.amazonaws.com/shecodesio-production/uploads/files/000/039/316/original/50d.png?1656854718`) ;
         } else {
             iconElment.innerHTML = null;
