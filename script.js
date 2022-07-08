@@ -105,7 +105,40 @@ function showTemperature(response) {
   
   console.log(formatDate(new Date()));
   
- 
+
+
+ function displayForecast(response) {
+  console.log (response.data);
+     let forecastElement = document.querySelector("#forecast");
+   let forecastHTML = `<div class="row">`;
+   let Days = ["Thu", "Fri", "Sat", "Sun", "Mon","Tue", "Wen"];
+   Days.forEach (function(day) {
+    forecastHTML = forecastHTML +
+   ` <div class="col-2">
+        <div class="weather-forecast-date">${day}
+      </div>
+        <img src="#" alt="hello" width="42"/>
+      <div class="weather-forecast-temp">
+      <span class="tempmax">16</span>
+      <span class="tempmin">8</span>
+      </div>
+      </div>
+    `;
+   })
+
+  forecastHTML = forecastHTML + `</div>`;
+forecastElement.innerHTML = forecastHTML;
+ }
+// displayForecast();
+
+function getForecast (coordinates){
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=eadaf9d564268a9d29e613879a48803e`;
+  axios.get (apiUrl).then(displayForecast);
+}
+
+getForecast (response.data.coord);
+
+
   
   //SEARCH TEMPERATURE
   function showWeather(response) {
